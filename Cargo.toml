@@ -1,0 +1,11 @@
+[package]
+name = "PostgreSQL pg_dumpall Database Extractor"
+version = "0.1.0"
+authors = ["pcolusso <paulcolusso@gmail.com>"]
+
+[dependencies]
+clap = "^2"
+
+[[bin]]
+name = "pg-extract"
+path = "main.rs"
