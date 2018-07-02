@@ -5,6 +5,7 @@ authors = ["pcolusso <paulcolusso@gmail.com>"]
 
 [dependencies]
 clap = "^2"
+indicatif = "^0.9"
 
 [[bin]]
 name = "pg-extract"
