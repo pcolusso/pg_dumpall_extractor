@@ -27,6 +27,12 @@ fn main() {
       .required(true)
       .long("output")
       .help("Saves output to a file."))
+    .arg(Arg::with_name("rename")
+      .value_name("New Database Name")
+      .short("r")
+      .long("rename-db-to")
+      .required(false)
+      .help("Generate SQL to restore to a different database name."))
     .get_matches();
 
   let in_file = File::open(arguments.value_of("inputfile").unwrap()).expect("Unable to open file for reading.");
@@ -44,6 +50,7 @@ fn main() {
 
   let mut found_db = false;
   let mut data_read: usize = 0;
+  pb.set_position(data_read as u64);
 
   'outer: for line in reader.lines() {
     let line = line.unwrap();
@@ -55,7 +62,9 @@ fn main() {
       if line.contains("\\connect") && line.contains(db_name) {
         found_db = true;
         println!("Database founnd. Commencing extraction...");
-        writer.write_all(line.as_bytes()).expect("Could not write a line to the file.");
+        let new_name = arguments.value_of("rename").unwrap_or(db_name);
+        let connect_line = format!("\\connect {}", new_name);
+        writer.write_all(connect_line.as_bytes()).expect("Could not write a line to the file.");
         writer.write_all("\n".as_bytes()).expect("Could not write a line to the file.");
       }
     } else {
