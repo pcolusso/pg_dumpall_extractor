@@ -1,11 +1,10 @@
 [package]
 name = "PostgreSQL pg_dumpall Database Extractor"
-version = "0.1.0"
+version = "0.1.3"
 authors = ["pcolusso <paulcolusso@gmail.com>"]
 
 [dependencies]
 clap = "^2"
-indicatif = "^0.9"
 
 [[bin]]
 name = "pg-extract"
